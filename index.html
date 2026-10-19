@@ -178,6 +178,61 @@
     .sub-head{font-family:var(--display);text-transform:uppercase;font-size:clamp(1.5rem,3vw,2rem);margin:4rem 0 1.6rem;display:flex;align-items:center;gap:.8rem}
     .sub-head i{color:var(--accent)}
 
+    /* NEW: SERVICE SPLIT PORTRAIT LAYOUT - No Borders, No Red Circle, B&W */
+    .svc-split{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:center;margin-top:2rem}
+    .portrait-stage{position:relative;width:100%;max-width:520px;margin:0 auto;aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;background:transparent;border:none}
+    
+    /* Background typography */
+    .portrait-bg-text{position:absolute;top:15%;left:50%;transform:translateX(-50%);font-family:var(--display);font-size:clamp(6rem,10vw,10rem);font-weight:900;line-height:.8;color:rgba(128,128,128,.05);letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0;user-select:none;text-transform:uppercase}
+    
+    /* Main Image */
+    .portrait-img{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;object-position:bottom;-webkit-mask-image:linear-gradient(to bottom,black 85%,transparent 100%);mask-image:linear-gradient(to bottom,black 85%,transparent 100%);filter:grayscale(100%) contrast(1.1)}
+    
+    /* Pointer labels */
+    .portrait-label{position:absolute;z-index:4;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text);white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+    .portrait-label::before{content:"";display:block;width:40px;height:1px;background:var(--text);position:absolute}
+    
+    .pl-top-right{top:30%;right:0;transform:translateX(100%)}
+    .pl-top-right::before{left:-45px}
+    .pl-top-left{top:35%;left:-20px}
+    .pl-top-left::before{right:-45px}
+    .pl-mid-left{bottom:25%;left:-40px}
+    .pl-mid-left::before{right:-45px}
+    .pl-mid-right{bottom:20%;right:-50px}
+    .pl-mid-right::before{left:-45px}
+
+    @media(max-width:900px){
+      .svc-split{grid-template-columns:1fr;gap:2rem}
+      .pl-top-right{right:10%;transform:none}
+      .pl-top-left{left:5%}
+      .pl-mid-left{left:0}
+      .pl-mid-right{right:0}
+    }
+
+    /* NEW: BOTTOM FUNNEL SECTION - Coloured, No Fade, Smaller Fit */
+    .funnel-section{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative}
+    .funnel-text{position:relative;z-index:2;max-width:500px}
+    .funnel-text h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(2.5rem,4vw,4rem);line-height:.95;letter-spacing:-.02em;margin-bottom:1.5rem}
+    .funnel-text h2 span{color:var(--accent)}
+    .funnel-text p{color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:2rem;max-width:420px}
+    .funnel-btn{display:inline-flex;align-items:center;justify-content:space-between;background:#8c2a1f;color:#fff;padding:1.2rem 2rem;border-radius:2px;font-family:var(--body);font-weight:700;font-size:1.1rem;width:100%;max-width:340px;transition:.25s;border:none;cursor:pointer}
+    .funnel-btn:hover{background:#a83225;transform:translateY(-2px)}
+    .funnel-btn i{font-size:1.2rem}
+    .funnel-sub{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-dim);margin-top:1.5rem;display:block;line-height:1.8}
+    .funnel-sub strong{color:var(--text);font-weight:600;display:block;margin-top:.5rem}
+    
+    .funnel-stage{position:relative;width:100%;max-width:600px;margin:0 auto;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:transparent;border:none}
+    .funnel-bg-text{position:absolute;top:0;right:-10%;font-family:var(--display);font-size:clamp(8rem,15vw,16rem);font-weight:900;line-height:.8;color:rgba(128,128,128,.05);letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0;user-select:none;text-transform:uppercase}
+    
+    /* Adjusted image to fit fully and stay coloured */
+    .funnel-img{position:relative;z-index:2;width:95%;height:95%;object-fit:contain;object-position:center;filter:none}
+    
+    @media(max-width:900px){
+      .funnel-section{grid-template-columns:1fr;gap:2rem}
+      .funnel-stage{aspect-ratio:4/5}
+      .funnel-img{width:100%;height:100%;object-fit:contain}
+    }
+
     /* 3D COVERFLOW CAROUSEL */
     .cf{width:100%}
     .cf-stage{position:relative;height:var(--cf-h,460px);perspective:1400px;perspective-origin:50% 40%;touch-action:pan-y;user-select:none}
@@ -321,7 +376,7 @@
   <h1 class="hero-editorial-text">PORTFOLIO</h1>
 
   <div class="hero-editorial-image">
-    <img src="ai.png" alt="Courteny Madronero" />
+    <img src="me.png" alt="Courteny Madronero" />
   </div>
 
   <div class="hero-editorial-overlay reveal">
@@ -352,35 +407,38 @@
 <!-- SERVICE 1 · INVENTORY APPLICATIONS -->
 <section class="svc" id="inventory">
   <div class="wrap">
-    <div class="svc-top">
-      <div class="reveal-x-left">
-        <span class="sec-num"><b>01</b> / Service</span>
-        <h2>Inventory<br/><span class="hl-amber">applications.</span></h2>
-      </div>
-      <div class="svc-copy reveal-x-left" style="transition-delay:.08s">
-        <p>I build stock systems that show what's in the warehouse, what's running low, and what to reorder, before it becomes a problem.</p>
-        <ul class="svc-list">
+    <div class="reveal-x-left" style="margin-bottom:3rem;">
+      <span class="sec-num"><b>01</b> / Service</span>
+      <h2>Inventory<br/><span class="hl-amber">applications.</span></h2>
+    </div>
+
+    <div class="svc-split">
+      <!-- Left Side: Text Content -->
+      <div class="reveal-x-left" style="transition-delay:.08s">
+        <p style="color:var(--muted);font-size:1.05rem;margin-bottom:1.5rem;max-width:420px;">I build stock systems that show what's in the warehouse, what's running low, and what to reorder, before it becomes a problem.</p>
+        
+        <ul class="svc-list" style="margin-bottom:2rem;">
           <li><i class="fas fa-circle"></i> Excel-based inventory systems with live stock levels</li>
           <li><i class="fas fa-circle"></i> Stock-in and stock-out tracking with validation</li>
           <li><i class="fas fa-circle"></i> Dashboards and reorder alerts</li>
           <li><i class="fas fa-circle"></i> ERP data clean-up and reconciliation</li>
         </ul>
+
         <a class="cta-btn cta-solid" href="https://wa.me/966569226173?text=Hi%20Courteny%2C%20I%27m%20interested%20in%20an%20inventory%20application" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Start an inventory system</a>
       </div>
-    </div>
 
-    <div class="cf" style="--cf-w:clamp(210px,26vw,320px);--cf-ar:4/5;--cf-h:480px" data-auto="5200">
-      <div class="cf-stage">
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Stock tracker</div><img src="inv-1.png" alt="Stock tracker" onerror="this.remove()"/><div class="cf-cap">Stock tracker</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Reorder dashboard</div><img src="inv-2.png" alt="Reorder dashboard" onerror="this.remove()"/><div class="cf-cap">Reorder dashboard</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Item master</div><img src="inv-3.png" alt="Item master" onerror="this.remove()"/><div class="cf-cap">Item master</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Monthly summary</div><img src="inv-4.png" alt="Monthly summary" onerror="this.remove()"/><div class="cf-cap">Monthly summary</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Stock count</div><img src="inv-5.png" alt="Stock count" onerror="this.remove()"/><div class="cf-cap">Stock count</div></div>
-      </div>
-      <div class="cf-controls">
-        <button class="cf-prev" type="button" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-        <div class="cf-dots"></div>
-        <button class="cf-next" type="button" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <!-- Right Side: Image Placeholder (B&W, No BG, No Circle) -->
+      <div class="reveal-x-left" style="transition-delay:.16s">
+        <div class="portrait-stage">
+          <div class="portrait-bg-text">STOCK</div>
+          <img src="ai.png" class="portrait-img" alt="Inventory system" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=800'; this.style.filter='grayscale(100%) contrast(1.1)';" />
+          
+          <!-- Labels -->
+          <div class="portrait-label pl-top-right">Reorder<br>Alerts</div>
+          <div class="portrait-label pl-top-left">Live Stock<br>Levels</div>
+          <div class="portrait-label pl-mid-left">Data<br>Validation</div>
+          <div class="portrait-label pl-mid-right">ERP<br>Sync</div>
+        </div>
       </div>
     </div>
   </div>
@@ -389,35 +447,38 @@
 <!-- SERVICE 2 · PORTFOLIO WEBSITES -->
 <section class="svc" id="portfolio">
   <div class="wrap">
-    <div class="svc-top">
-      <div class="reveal-x-left">
-        <span class="sec-num"><b>02</b> / Service</span>
-        <h2>Portfolio<br/><span class="hl-amber">websites.</span></h2>
-      </div>
-      <div class="svc-copy reveal-x-left" style="transition-delay:.08s">
-        <p>Clean, fast, mobile-friendly websites that show your work clearly and make it easy for people to get in touch.</p>
-        <ul class="svc-list">
+    <div class="reveal-x-left" style="margin-bottom:3rem;">
+      <span class="sec-num"><b>02</b> / Service</span>
+      <h2>Portfolio<br/><span class="hl-amber">websites.</span></h2>
+    </div>
+
+    <div class="svc-split">
+      <!-- Left Side: Text Content -->
+      <div class="reveal-x-left" style="transition-delay:.08s">
+        <p style="color:var(--muted);font-size:1.05rem;margin-bottom:1.5rem;max-width:420px;">Clean, fast, mobile-friendly websites that show your work clearly and make it easy for people to get in touch.</p>
+        
+        <ul class="svc-list" style="margin-bottom:2rem;">
           <li><i class="fas fa-circle"></i> Personal and freelancer portfolios</li>
           <li><i class="fas fa-circle"></i> Project galleries with video and photo viewers</li>
           <li><i class="fas fa-circle"></i> Contact forms, live comments and visitor counts</li>
           <li><i class="fas fa-circle"></i> Responsive layouts for phones and desktops</li>
         </ul>
+
         <a class="cta-btn cta-solid" href="https://wa.me/966569226173?text=Hi%20Courteny%2C%20I%27d%20like%20a%20portfolio%20website" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Build my portfolio</a>
       </div>
-    </div>
 
-    <div class="cf" style="--cf-w:clamp(230px,30vw,360px);--cf-ar:4/5;--cf-h:500px" data-auto="5600">
-      <div class="cf-stage">
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Personal portfolio</div><img src="web-1.png" alt="Personal portfolio" onerror="this.remove()"/><div class="cf-cap">Personal portfolio</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Landing page</div><img src="web-2.png" alt="Landing page" onerror="this.remove()"/><div class="cf-cap">Landing page</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Client site</div><img src="web-3.png" alt="Client site" onerror="this.remove()"/><div class="cf-cap">Client site</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Mobile view</div><img src="web-4.png" alt="Mobile view" onerror="this.remove()"/><div class="cf-cap">Mobile view</div></div>
-        <div class="cf-item"><div class="cf-ph"><i class="fas fa-image"></i>Case study</div><img src="web-5.png" alt="Case study" onerror="this.remove()"/><div class="cf-cap">Case study</div></div>
-      </div>
-      <div class="cf-controls">
-        <button class="cf-prev" type="button" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-        <div class="cf-dots"></div>
-        <button class="cf-next" type="button" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      <!-- Right Side: Image Placeholder (B&W, No BG, No Circle) -->
+      <div class="reveal-x-left" style="transition-delay:.16s">
+        <div class="portrait-stage">
+          <div class="portrait-bg-text">WEB</div>
+          <img src="me.png" class="portrait-img" alt="Portfolio design" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600&h=800'; this.style.filter='grayscale(100%) contrast(1.1)';" />
+          
+          <!-- Labels -->
+          <div class="portrait-label pl-top-right">Conversion<br>Design</div>
+          <div class="portrait-label pl-top-left">Funnel<br>Strategy</div>
+          <div class="portrait-label pl-mid-left">Custom<br>Builds</div>
+          <div class="portrait-label pl-mid-right">Automations<br>& Workflows</div>
+        </div>
       </div>
     </div>
   </div>
@@ -491,6 +552,35 @@
           <span class="dl-count"><i class="fas fa-download"></i><b class="dl-count-num" data-file="data-entry-template">0</b> downloads</span>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- NEW: BOTTOM FUNNEL SECTION (Coloured, No Fade, Smaller Fit) -->
+<section class="svc" style="border-top:none; padding-top:2rem;">
+  <div class="wrap">
+    <div class="funnel-section">
+      <!-- Left Side: Text -->
+      <div class="funnel-text reveal-x-left">
+        <h2>got an offer worth selling?<br>let's build that <span>funnel!</span></h2>
+        <p>You've already done the hard part: building an offer people want. Now let's give it a funnel that makes the value clear, moves people toward the sale, and actually supports the business behind it.</p>
+        
+        <button class="funnel-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <span>work with me</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <div class="funnel-sub">
+          FUNNELS / DIGITAL BUILDS / SYSTEMS
+          <strong>Available for select projects worldwide.</strong>
+        </div>
+      </div>
+
+      <!-- Right Side: Image Placeholder -->
+      <div class="funnel-stage reveal-x-left" style="transition-delay:.16s">
+        <div class="funnel-bg-text">SYSTEM</div>
+        <img src="ai.png" class="funnel-img" alt="Funnel design" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800&h=800';" />
+      </div>
     </div>
   </div>
 </section>
@@ -608,7 +698,7 @@
   /* ---------- TOOLS MARQUEE ---------- */
   const TOOLS = [
     { name: 'VS Code', img: 'https://img.icons8.com/color/48/visual-studio-code-2019.png' },
-    { name: 'GitHub', img: 'git.png' },
+    { name: 'GitHub', img: 'github.png' },
     { name: 'Cursor', img: 'cursor.jpg' },
     { name: 'Firebase', img: 'firebase.png' },
     { name: 'HTML5', img: 'https://img.icons8.com/color/48/html-5.png' },
