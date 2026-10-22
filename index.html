@@ -62,17 +62,17 @@
     /* NAV */
     .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.3rem 0;transition:.35s ease;border-bottom:1px solid transparent}
     .nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.9rem 0}
-    .nav .wrap{display:flex;align-items:center;justify-content:space-between}
-    .nav-mark{font-family:var(--display);font-weight:800;font-size:1.5rem;display:flex;align-items:center;gap:.5rem}
+    .nav .wrap{max-width:none;padding:0 clamp(1.2rem,3vw,3rem);display:flex;align-items:center;justify-content:space-between}
+    .nav-mark{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:.02em;display:flex;align-items:center;gap:.5rem}
     .nav-mark .dot{width:8px;height:8px;transform:rotate(45deg);background:var(--accent);box-shadow:0 0 12px var(--accent)}
-    .nav-right{display:flex;align-items:center;gap:1.4rem;margin-left:auto}
-    .nav-links{display:flex;gap:1.9rem;list-style:none;font-size:.88rem}
+    .nav-right{display:flex;align-items:center;gap:1.6rem;margin-left:auto}
+    .nav-links{display:flex;gap:1.6rem;list-style:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
     .nav-links a{color:var(--muted);font-weight:500;position:relative;padding-bottom:4px;transition:.2s}
     .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--accent);transition:.25s ease}
     .nav-links a:hover,.nav-links a.active{color:var(--text)}
     .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-    .nav-cta{font-family:var(--mono);font-size:.78rem;border:1px solid var(--border);padding:.5rem 1.1rem;border-radius:3px;color:var(--text);display:flex;align-items:center;gap:.5rem;transition:.2s}
-    .nav-cta:hover{border-color:var(--accent);background:rgba(var(--accent-rgb),.12)}
+    .nav-cta{font-family:var(--body);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);padding:.5rem 1.1rem;border-radius:40px;color:var(--text);display:flex;align-items:center;gap:.5rem;transition:.25s}
+    .nav-cta:hover{border-color:var(--accent);color:var(--accent)}
     .nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);font-size:1.2rem;width:2.4rem;height:2.4rem;border-radius:50%;cursor:pointer}
     .theme-toggle{width:2.4rem;height:2.4rem;flex:none;border-radius:50%;border:1px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.88rem;transition:transform .45s cubic-bezier(.22,1.4,.36,1),border-color .25s,color .25s}
     .theme-toggle:hover{border-color:var(--accent);color:var(--accent);transform:rotate(25deg)}
@@ -98,7 +98,16 @@
     .hero-editorial-image img{width:100%;height:100%;object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,black 85%,transparent 100%);mask-image:linear-gradient(to bottom,black 85%,transparent 100%)}
 
     .hero-editorial-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:space-between;padding:8rem 3rem 3rem;pointer-events:none}
-    .top-row{display:flex;justify-content:flex-end}
+    .top-row{display:flex;flex-direction:column;align-items:flex-end;gap:.7rem}
+    .hero-stats{display:inline-flex;align-items:stretch;background:rgba(255,255,255,.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;pointer-events:auto}
+    html[data-theme="light"] .hero-stats{background:rgba(255,255,255,.7);border-color:var(--border)}
+    .hs-item{display:flex;flex-direction:column;justify-content:center;gap:.35rem;padding:.7rem 1.1rem;min-width:104px}
+    .hs-item+.hs-item{border-left:1px solid rgba(255,255,255,.08)}
+    html[data-theme="light"] .hs-item+.hs-item{border-left-color:var(--border)}
+    .hs-label{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-dim);white-space:nowrap}
+    .hs-num{font-family:var(--display);font-weight:800;font-size:1.65rem;line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+    .hs-pulse{width:6px;height:6px;border-radius:50%;background:#25d366;box-shadow:0 0 8px #25d366;animation:hsPulse 2s ease-in-out infinite}
+    @keyframes hsPulse{50%{opacity:.3}}
     .hero-available{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);padding:.6rem 1.2rem;border-radius:60px;border:1px solid rgba(255,255,255,.1);pointer-events:auto}
     html[data-theme="light"] .hero-available{background:rgba(255,255,255,.7);border-color:var(--border)}
     .dot-green{width:8px;height:8px;border-radius:50%;background:#25d366;box-shadow:0 0 10px #25d366}
@@ -118,7 +127,9 @@
       .hero-editorial-text{position:relative;top:auto;left:auto;transform:none;font-size:25vw;margin-bottom:-13vw}
       .hero-editorial-image{width:min(68vw,300px)}
       .hero-editorial-overlay{position:relative;inset:auto;padding:0;width:100%;margin-top:1.6rem;gap:1.6rem;justify-content:flex-start}
-      .top-row{justify-content:center}
+      .top-row{align-items:center}
+      .hs-item{min-width:88px;padding:.6rem .8rem}
+      .hs-num{font-size:1.35rem}
       .bottom-row{flex-direction:column;align-items:center;text-align:center;gap:1.4rem}
       .editorial-left-text{max-width:none;display:flex;flex-direction:column;align-items:center}
       .editorial-name{font-size:clamp(2rem,9vw,2.6rem)}
@@ -695,10 +706,10 @@
     <a href="#top" class="nav-mark"><span class="dot"></span>CM.</a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#inventory">Inventory</a></li>
-        <li><a href="#portfolio">Websites</a></li>
-        <li><a href="#excel">Excel</a></li>
-        <li><a href="#downloads">Downloads</a></li>
+        <li><a href="#inventory">POS Application</a></li>
+        <li><a href="#portfolio">Portfolio Websites</a></li>
+        <li><a href="#excel">Excel Tutorials</a></li>
+        <li><a href="#downloads">Download Excel Templates</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="theme-toggle" type="button" aria-label="Toggle dark and light mode" title="Toggle light / dark mode"><i class="fas fa-sun"></i></button>
@@ -707,10 +718,10 @@
     </div>
   </div>
   <div class="nav-mobile" id="navMobile">
-    <a href="#inventory">Inventory</a>
-    <a href="#portfolio">Websites</a>
-    <a href="#excel">Excel</a>
-    <a href="#downloads">Downloads</a>
+    <a href="#inventory">POS Application</a>
+    <a href="#portfolio">Portfolio Websites</a>
+    <a href="#excel">Excel Tutorials</a>
+    <a href="#downloads">Download Excel Templates</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -725,6 +736,11 @@
 
   <div class="hero-editorial-overlay reveal">
     <div class="top-row">
+      <div class="hero-stats" aria-label="Live site stats">
+        <div class="hs-item"><span class="hs-label"><span class="hs-pulse"></span>Visitors</span><span class="hs-num" data-stat="visitors">0</span></div>
+        <div class="hs-item"><span class="hs-label">Downloads</span><span class="hs-num" data-stat="downloads">0</span></div>
+        <div class="hs-item"><span class="hs-label">Comments</span><span class="hs-num" data-stat="comments">0</span></div>
+      </div>
       <div class="hero-available"><span class="dot-green"></span> Available for projects</div>
     </div>
     <div class="bottom-row">
@@ -1191,7 +1207,7 @@
   /* ---------- TOOLS MARQUEE ---------- */
   const TOOLS = [
     { name: 'VS Code', img: 'https://img.icons8.com/color/48/visual-studio-code-2019.png' },
-    { name: 'GitHub', img: 'github.png' },
+    { name: 'GitHub', img: 'git.png' },
     { name: 'Cursor', img: 'cursor.jpg' },
     { name: 'Firebase', img: 'firebase.png' },
     { name: 'HTML5', img: 'https://img.icons8.com/color/48/html-5.png' },
@@ -1369,11 +1385,32 @@
     musicBtn.innerHTML = on ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
     musicBtn.setAttribute('aria-label', on ? 'Pause background music' : 'Play background music');
   }
-  musicBtn.addEventListener('click', () => {
-    if (musicOn) { bgAudio.pause(); setMusic(false); return; }
-    bgAudio.play().then(() => setMusic(true)).catch(() => {
+  // Autoplay on load. Browsers block sound until the visitor interacts,
+  // so if blocked, the music starts on the first click, tap, key press or scroll.
+  let userPaused = false;
+  function startMusic() {
+    if (musicOn || userPaused) return Promise.resolve(true);
+    return bgAudio.play().then(() => { setMusic(true); return true; }).catch(err => {
+      if (err && err.name === 'NotAllowedError') return false;
       musicSub.textContent = 'No track yet: add music.mp3';
+      return true;
     });
+  }
+  const unlockEvents = ['pointerdown', 'keydown', 'touchstart', 'wheel'];
+  function removeUnlock() {
+    unlockEvents.forEach(ev => window.removeEventListener(ev, unlockMusic));
+  }
+  function unlockMusic(e) {
+    if (e && e.target && e.target.closest && e.target.closest('#music')) return;
+    startMusic().then(ok => { if (ok) removeUnlock(); });
+  }
+  unlockEvents.forEach(ev => window.addEventListener(ev, unlockMusic, { passive: true }));
+  startMusic().then(ok => { if (ok) removeUnlock(); });
+
+  musicBtn.addEventListener('click', () => {
+    if (musicOn) { userPaused = true; bgAudio.pause(); setMusic(false); return; }
+    userPaused = false;
+    startMusic();
   });
 
   /* ---------- UP / DOWN NAV ---------- */
@@ -1602,6 +1639,24 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  /* ================= HERO LIVE STATS ================= */
+  function setHeroStat(key, value) {
+    const el = document.querySelector(`.hs-num[data-stat="${key}"]`);
+    if (!el) return;
+    const to = Number(value) || 0;
+    const from = Number(el.dataset.value || 0);
+    el.dataset.value = to;
+    if (from === to) return;
+    const start = performance.now(), dur = 900;
+    const step = now => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(from + (to - from) * eased).toLocaleString();
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
   function fmt(v) {
     if (!v) return 'Just now';
@@ -1681,6 +1736,13 @@
     }
   }
 
+  // Hero stat: total comments + replies
+  onSnapshot(collection(db, "comments"), snap => {
+    let total = 0;
+    snap.forEach(d => { total += 1 + ((d.data().replies || []).length); });
+    setHeroStat('comments', total);
+  }, e => console.warn('Hero comments stat error:', e));
+
   // Realtime listener
   try {
     const commentsQuery = query(collection(db, "comments"), orderBy("createdAt", "desc"), limit(50));
@@ -1744,12 +1806,14 @@
       await setDoc(ref, { count: increment(1) }, { merge: true });
       const updated = await getDoc(ref);
       visitorEl.textContent = (updated.data()?.count ?? 1).toLocaleString();
+      setHeroStat('visitors', updated.data()?.count ?? 1);
     } catch (e) {
       console.warn('Visitor count error:', e);
       // Fallback: try a live listener so it still shows after rules are fixed
       try {
         onSnapshot(ref, snap => {
           visitorEl.textContent = (snap.data()?.count ?? 0).toLocaleString();
+          setHeroStat('visitors', snap.data()?.count ?? 0);
         });
       } catch { visitorEl.textContent = '0'; }
     }
@@ -1767,9 +1831,12 @@
     });
   });
 
+  const dlTotals = {};
   ['inventory-system', 'inventory-dashboard', 'data-entry-template'].forEach(fileId => {
     onSnapshot(doc(db, "downloads", fileId), snap => {
       const num = snap.exists() ? (snap.data().count || 0) : 0;
+      dlTotals[fileId] = num;
+      setHeroStat('downloads', Object.values(dlTotals).reduce((a, b) => a + b, 0));
       document.querySelectorAll(`.dl-count-num[data-file="${fileId}"]`).forEach(el => el.textContent = num.toLocaleString());
     }, e => console.warn('Download counter error:', fileId, e));
   });
