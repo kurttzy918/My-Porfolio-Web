@@ -653,6 +653,16 @@
     .cf-dots span.active{background:var(--accent);width:22px}
     @media(max-width:700px){.cf-stage{height:calc(var(--cf-h,460px) * .86)}}
 
+/* PHOTO BACKGROUND · fixed layer behind all content */
+.page-bg{
+  position:fixed;inset:0;z-index:-12;pointer-events:none;
+  background-image:url('bg.png');
+  background-size:cover;background-position:center top;background-repeat:no-repeat;
+  opacity:.22;
+}
+html[data-theme="light"] .page-bg{opacity:.12}
+@media(max-width:700px){.page-bg{background-attachment:scroll}}
+
     /* CURSOR */
     .cursor-aura,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;opacity:0;will-change:transform}
     .cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 12px rgba(var(--accent-rgb),.95);transform:translate3d(var(--cx,-100px),var(--cy,-100px),0);transition:opacity .3s;z-index:9999}
@@ -765,10 +775,53 @@
 /* SHORT CLIPS · SHOW FULL VIDEO */
 .clip-frame{aspect-ratio:16/10;max-height:none;background:#0c0c0e}
 .clip-frame video{object-fit:contain;background:#0c0c0e}
+/* FUNNEL · FULL IMAGE + NO OVERLAP */
+.fc-visual{
+  flex-direction:column;align-items:center;justify-content:flex-end;
+  padding-top:110px;
+}
+.fc-bubble{
+  top:0;left:50%;right:auto;
+  transform:translateX(-50%);
+}
+.fc-img-wrap{max-width:100%;width:100%}
+.fc-img{
+  max-height:none;height:auto;width:100%;
+  object-fit:contain;object-position:bottom;
+}
+@media(max-width:900px){
+  .fc-visual{padding-top:90px}
+  .fc-bubble{top:0}
+}
+/* FOOTER · MINIMAL ICONS + TAGLINE */
+.sf-icon{
+  width:42px;height:42px;border-radius:50%;
+  background:transparent;border:1px solid var(--border);
+  color:var(--muted);box-shadow:none;font-size:.95rem;
+  transition:color .25s,border-color .25s;
+}
+.sf-icon:hover{
+  transform:none;box-shadow:none;
+  background:transparent;color:var(--accent);border-color:var(--accent);
+}
+.sf-icon i{transition:none}
+.sf-icon:hover i{transform:none}
+.sf-icon::after{display:none}
+.sf-social{gap:.7rem}
+.sf-catch{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted-dim);
+  text-align:center;line-height:1.9;margin-top:-.4rem;
+}
+.sf-links{font-size:.95rem}
+/* POS COMMENTS · SPACING */
+.pos-comments{margin:4rem auto 0;max-width:1240px;width:100%}
+.pos-comments .tm-head{display:flex;flex-direction:column;gap:.4rem;margin-bottom:2rem}
+@media(max-width:700px){.pos-comments{margin-top:3rem}}
   </style>
 </head>
 <body>
-
+<div class="page-bg" aria-hidden="true"></div>
 <canvas id="fireAshes"></canvas>
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -786,7 +839,7 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="theme-toggle" type="button" aria-label="Toggle dark and light mode" title="Toggle light / dark mode"><i class="fas fa-sun"></i></button>
-      <a href="#comments" class="nav-cta"><i class="fas fa-arrow-right"></i> COMMENTS</a>
+      <a href="#pos-comments" class="nav-cta"><i class="fas fa-arrow-right"></i> COMMENTS</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
     </div>
   </div>
@@ -819,7 +872,7 @@
       <div class="editorial-left-text">
         <span class="editorial-script">Hey, I'm</span>
         <h2 class="editorial-name">Courteny<br>Madronero</h2>
-        <p class="editorial-desc">Virtual Admin Assistant | No-Code App Builder</p>
+        <p class="editorial-desc">Virtual Admin Assistant | No-Code Web App Builder</p>
         <div class="editorial-badges">OPEN FOR
 REMOTE ROLES</div>
       </div>
@@ -963,17 +1016,17 @@ REMOTE ROLES</div>
       <article class="clip-card reveal-x-left" style="transition-delay:.08s">
         <div class="clip-frame">
           <span class="clip-ph"><i class="fas fa-video"></i>Add clips/clip-2.mp4</span>
-          <video controls preload="metadata" playsinline poster="clips/clip-2.jpg" src="clips/clip-2.mp4"></video>
+          <video controls preload="metadata" playsinline poster="screenshots/th1.png" src="clips/clip-2.mp4"></video>
         </div>
         <div class="clip-info">
           <h4>Simple Inventory Tracker</h4>
-          <p>Make your Inventory Automated.</p>
+          <p>Make your Inventory Automated and more efficient.</p>
         </div>
       </article>
       <article class="clip-card reveal-x-left" style="transition-delay:.16s">
         <div class="clip-frame">
           <span class="clip-ph"><i class="fas fa-video"></i>Add clips/clip-3.mp4</span>
-          <video controls preload="metadata" playsinline poster="clips/clip-3.jpg" src="clips/clip-3.mp4"></video>
+          <video controls preload="metadata" playsinline poster="screenshots/th2.png" src="clips/clip-3.mp4"></video>
         </div>
         <div class="clip-info">
           <h4>Clip 03 · Clip title</h4>
@@ -1011,11 +1064,11 @@ REMOTE ROLES</div>
       </article>
 
       <article class="dl-card reveal-x-left" data-file="data-entry-template" style="transition-delay:.16s">
-        <div class="dl-head"><div class="dl-icon"><i class="fas fa-file-excel"></i></div><div><h3>Data Entry Template</h3><span class="dl-meta">XLSX · 96 KB</span></div></div>
-        <p class="dl-desc">Clean, validated data-entry sheet with dropdowns, duplicate checks and error flags.</p>
-        <div class="dl-tags"><span>Data Entry</span><span>Validation</span></div>
+        <div class="dl-head"><div class="dl-icon"><i class="fas fa-file-excel"></i></div><div><h3>Beginner to Advanced Formulas</h3><span class="dl-meta">XLSX · 96 KB</span></div></div>
+        <p class="dl-desc">Learn and master Excel formulas from basic to advanced levels.</p>
+        <div class="dl-tags"><span>Formulas</span><span>Excel</span></div>
         <div class="dl-bottom">
-          <a class="dl-btn" href="files/Data-Entry-Template.xlsx" download="Data-Entry-Template.xlsx"><i class="fas fa-download"></i> Download</a>
+          <a class="dl-btn" href="files/Beginner-to-Advanced-Formulas.xlsx" download="Beginner-to-Advanced-Formulas.xlsx"><i class="fas fa-download"></i> Download</a>
           <span class="dl-count"><i class="fas fa-download"></i><b class="dl-count-num" data-file="data-entry-template">0</b> downloads</span>
         </div>
       </article>
@@ -1157,6 +1210,33 @@ REMOTE ROLES</div>
         <button class="tm-arrow tm-next" type="button" aria-label="Next client"><i class="fas fa-arrow-right"></i></button>
       </div>
     </section>
+
+    <!-- POS COMMENTS -->
+<section class="pos-comments reveal-x-left">
+  <div class="tm-head">
+    <span class="tm-kicker">Community</span>
+    <h3 class="tm-title">Leave a comment on the POS app</h3>
+  </div>
+  <div class="comments-grid">
+    <form class="form-card svc-comment-form" data-svc="pos">
+      <h4 style="font-family:var(--display);font-size:1.3rem;margin-bottom:.5rem;">Share your thoughts</h4>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem;">Your name and message will be visible to everyone.</p>
+      <div class="field"><label for="posName">Your name</label><input id="posName" class="sc-name" type="text" placeholder="Enter your name" required /></div>
+      <div class="field"><label for="posMsg">Message</label><textarea id="posMsg" class="sc-msg" placeholder="Write your comment here..." required style="min-height:100px"></textarea></div>
+      <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Post comment</button>
+      <div class="comment-status"></div>
+    </form>
+    <div class="comment-list-wrapper reveal-x-left" style="transition-delay:.08s">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
+        <h4 style="font-family:var(--display);font-size:1.3rem;">Recent comments</h4>
+        <span style="font-family:var(--mono);font-size:.75rem;color:var(--muted-dim)"><i class="fas fa-comments"></i> POS App</span>
+      </div>
+      <div class="svc-comments-list" data-svc-comments="pos" style="max-height:400px;overflow-y:auto;padding-right:.5rem;">
+        <p style="color:var(--muted-dim);text-align:center;padding:1rem;">Loading comments...</p>
+      </div>
+    </div>
+  </div>
+  </section>
 
     <!-- SCREENSHOTS -->
     <div class="showcase reveal-x-left">
@@ -1408,7 +1488,7 @@ REMOTE ROLES</div>
         <div class="fc-bubble" data-parallax="0.22">
           <div class="speech-bubble-wrap">
             <div class="speech-bubble">
-              <p class="typing-text">Let's build together!</p>
+              <p class="typing-text">Let's Connect!</p>
             </div>
           </div>
         </div>
@@ -1471,39 +1551,6 @@ REMOTE ROLES</div>
   </div>
 </section>
 
-<!-- COMMENTS -->
-<section class="svc bleed" id="comments" style="padding-top:3rem">
-  <div class="wrap">
-    <div class="svc-top" style="margin-bottom:2rem">
-      <div class="reveal-x-left">
-        <span class="sec-num"><b>05</b> / Community</span>
-        <h2>Comments &amp; <span class="hl-amber">feedback.</span></h2>
-      </div>
-    </div>
-    <div class="comments-grid">
-      <div class="form-card reveal-x-left">
-        <h3 style="font-family:var(--display);font-size:1.3rem;margin-bottom:.5rem;">Leave a comment</h3>
-        <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem;">Your name and message will be visible to everyone.</p>
-        <form id="commentForm">
-          <div class="field"><label for="commentName">Your name</label><input id="commentName" type="text" placeholder="Enter your name" required /></div>
-          <div class="field"><label for="commentMessage">Message</label><textarea id="commentMessage" placeholder="Write your comment here..." required style="min-height:100px"></textarea></div>
-          <button type="submit" id="commentSubmit" class="submit-btn"><i class="fas fa-paper-plane"></i> Post comment</button>
-          <div id="commentStatus" class="comment-status" style="margin-top:.8rem"></div>
-        </form>
-      </div>
-      <div class="comment-list-wrapper reveal-x-left" style="transition-delay:.08s">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
-          <h3 style="font-family:var(--display);font-size:1.3rem;">Recent comments</h3>
-          <span style="font-family:var(--mono);font-size:.75rem;color:var(--muted-dim)"><i class="fas fa-eye"></i> <span id="visitorCount">0</span> visitors</span>
-        </div>
-        <div id="commentsList" style="max-height:500px;overflow-y:auto;padding-right:.5rem;">
-          <p style="color:var(--muted-dim);text-align:center;padding:1rem;">Loading comments...</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer class="site-footer reveal">
   <div class="sf-inner">
@@ -1514,12 +1561,13 @@ REMOTE ROLES</div>
     </div>
 
     <div class="sf-social" aria-label="Social media">
-      <a class="sf-icon" href="https://www.linkedin.com/in/courteny-madronero-16556b363/" target="_blank" rel="noopener" aria-label="LinkedIn" data-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a class="sf-icon" href="https://github.com/kurttzy918" target="_blank" rel="noopener" aria-label="GitHub" data-label="GitHub"><i class="fab fa-github"></i></a>
-      <a class="sf-icon" href="https://www.youtube.com/@KurtCreates1994" target="_blank" rel="noopener" aria-label="YouTube" data-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a class="sf-icon" href="https://wa.me/966569226173" target="_blank" rel="noopener" aria-label="WhatsApp" data-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      <a class="sf-icon" href="mailto:madronerokurt04@gmail.com" aria-label="Email" data-label="Email"><i class="fas fa-envelope"></i></a>
-    </div>
+  <a class="sf-icon" href="https://www.linkedin.com/in/courteny-madronero-16556b363/" target="_blank" rel="noopener" aria-label="LinkedIn" data-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  <a class="sf-icon" href="https://github.com/kurttzy918" target="_blank" rel="noopener" aria-label="GitHub" data-label="GitHub"><i class="fab fa-github"></i></a>
+  <a class="sf-icon" href="https://www.youtube.com/@KurtCreates1994" target="_blank" rel="noopener" aria-label="YouTube" data-label="YouTube"><i class="fab fa-youtube"></i></a>
+  <a class="sf-icon" href="https://wa.me/966569226173" target="_blank" rel="noopener" aria-label="WhatsApp" data-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <a class="sf-icon" href="mailto:madronerokurt04@gmail.com" aria-label="Email" data-label="Email"><i class="fas fa-envelope"></i></a>
+   </div>
+<p class="sf-catch">Smart spreadsheets. Simple systems.<br>Built to run your business.</p>
 
     <nav class="sf-links" aria-label="Footer navigation">
       <a href="#excel">Excel</a>
@@ -2408,28 +2456,30 @@ REMOTE ROLES</div>
 
   /* ================= SERVICE COMMENTS ================= */
   document.querySelectorAll('.svc-comments-list').forEach(listEl => {
-    const service = listEl.dataset.svcComments;
-    const q = query(collection(db, "service_comments"), where("service", "==", service), orderBy("createdAt", "desc"), limit(30));
-    onSnapshot(q, snap => {
-      if (snap.empty) {
-        listEl.innerHTML = '<p style="color:var(--muted-dim);text-align:center;padding:.8rem;font-size:.85rem;">No comments yet. Be the first!</p>';
-        return;
-      }
-      listEl.innerHTML = '';
-      snap.forEach(d => {
-        const data = d.data() || {};
-        const item = document.createElement('div');
-        item.className = 'comment-item';
-        item.innerHTML = `
-          <div class="comment-header"><strong class="comment-name">${esc(data.name || 'Anonymous')}</strong><span class="comment-date">${fmt(data.createdAt)}</span></div>
-          <p class="comment-message">${esc(data.message || '')}</p>`;
-        listEl.appendChild(item);
-      });
-    }, err => {
-      console.warn('Service comments error:', service, err);
-      listEl.innerHTML = '<p style="color:var(--muted-dim);text-align:center;padding:.8rem;font-size:.85rem;">Comments could not be loaded.</p>';
+  const service = listEl.dataset.svcComments;
+  const q = query(collection(db, "service_comments"), where("service", "==", service), limit(50));
+  onSnapshot(q, snap => {
+    if (snap.empty) {
+      listEl.innerHTML = '<p style="color:var(--muted-dim);text-align:center;padding:.8rem;font-size:.85rem;">No comments yet. Be the first!</p>';
+      return;
+    }
+    const items = snap.docs
+      .map(d => d.data() || {})
+      .sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+    listEl.innerHTML = '';
+    items.forEach(data => {
+      const item = document.createElement('div');
+      item.className = 'comment-item';
+      item.innerHTML = `
+        <div class="comment-header"><strong class="comment-name">${esc(data.name || 'Anonymous')}</strong><span class="comment-date">${fmt(data.createdAt)}</span></div>
+        <p class="comment-message">${esc(data.message || '')}</p>`;
+      listEl.appendChild(item);
     });
+  }, err => {
+    console.warn('Service comments error:', service, err);
+    listEl.innerHTML = '<p style="color:var(--muted-dim);text-align:center;padding:.8rem;font-size:.85rem;">Comments could not be loaded.</p>';
   });
+});
 
   document.querySelectorAll('.svc-comment-form').forEach(form => {
     const service = form.dataset.svc;
@@ -2481,28 +2531,24 @@ REMOTE ROLES</div>
   }
 
   const visitorEl = document.getElementById('visitorCount');
-  async function updateVisitorCount() {
-    if (!visitorEl) return;
-    const ref = doc(db, "stats", "visitors");
+async function updateVisitorCount() {
+  const ref = doc(db, "stats", "visitors");
+
+  if (shouldCountVisit()) {
     try {
-      if (shouldCountVisit()) {
-        await setDoc(ref, { count: increment(1) }, { merge: true });
-        try { sessionStorage.setItem('visitCounted', '1'); } catch (e) {}
-      }
-      const snap = await getDoc(ref);
-      const count = snap.data()?.count ?? 0;
-      visitorEl.textContent = count.toLocaleString();
-      setHeroStat('visitors', count);
+      await setDoc(ref, { count: increment(1) }, { merge: true });
+      sessionStorage.setItem('visitCounted', '1');
     } catch (e) {
-      console.warn('Visitor count error:', e);
-      try {
-        onSnapshot(ref, snap => {
-          visitorEl.textContent = (snap.data()?.count ?? 0).toLocaleString();
-          setHeroStat('visitors', snap.data()?.count ?? 0);
-        });
-      } catch { visitorEl.textContent = '0'; }
+      console.warn('Visitor increment failed:', e);
     }
   }
+
+  onSnapshot(ref, snap => {
+    const count = Number(snap.data()?.count) || 0;
+    if (visitorEl) visitorEl.textContent = count.toLocaleString();
+    setHeroStat('visitors', count);
+  }, e => console.warn('Visitor read failed:', e));
+}
   setTimeout(updateVisitorCount, 600);
 
   /* ================= DOWNLOAD COUNTERS ================= */
